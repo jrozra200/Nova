@@ -17,4 +17,4 @@ ggplot(data = df, aes(x = iteration, y = mean)) +
     # geom_line() +
     geom_hline(yintercept = mean(1:10), color = "red") + 
     ggtitle(paste(dim(df)[1], "four 'person' samples from 1-10; average of the",
-                  " averages is: ", mean(df$mean)))
+                  "samples is: ", mean(df$mean)))
