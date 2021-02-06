@@ -43,7 +43,10 @@ ggplot(mtcars, aes(x = disp, y = mpg)) +
 
 
 ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + 
-    geom_point(color = "dark red") + 
+    geom_jitter(color = "dark red") + 
+    stat_summary(fun.data = mean_sdl, fun.args = list(mult=1), 
+                 geom = "errorbar", color = "black", width = 0.5) + 
+    stat_summary(fun.y = mean, geom = "point", color = "black") +
     theme(panel.background = element_blank(), 
           axis.line = element_line(color = "black")) +
     xlab("Engine Cylinders") +
