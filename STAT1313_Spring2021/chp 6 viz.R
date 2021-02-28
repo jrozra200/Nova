@@ -26,5 +26,5 @@ ggplot(dat, aes(x = x, y = prob)) +
     xlab("Number of Right Handed Toads") + 
     ylab("Probability") + 
     geom_vline(xintercept = 9, size = 2, color = "dark gray") + 
-    geom_vline(xintercept = 14, size = 2, color = "red")
+    geom_vline(xintercept = 13.5, size = 2, color = "red")
 
