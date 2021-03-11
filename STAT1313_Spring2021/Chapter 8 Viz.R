@@ -41,3 +41,23 @@ ggplot(dat, aes(x = boys, y = Frequency, group = Value, fill = Value)) +
     theme(panel.background = element_blank(), text = element_text(size = 20),
           legend.title = element_blank(), legend.position = "top") +
     xlab("Number of Boys")
+
+
+# Chp 7 Homework
+
+choose(12, 5) * (5 / 12)^5 * (1 - (5 / 12))^(12 - 5)
+choose(12, 7) * (5 / 12)^5 * (1 - (5 / 12))^(12 - 5)
+
+0.4375 - (1.96 * sqrt((0.4375 *(1 - 0.4375)) / 16))
+0.4375 + (1.96 * sqrt((0.4375 *(1 - 0.4375)) / 16))
+
+
+(choose(17, 16)*(0.5)^16*(0.5) + choose(17, 17)*(0.5)^17*(0.5)^0) * 2
+
+# Chap 8 Homework
+
+df <- data.frame(obs = c(7, 4, 5, 6, 6))
+df$exp <- 5.6
+df$chis <- (df$obs-df$exp)^2/df$exp
+df
+sum(df$chis)
