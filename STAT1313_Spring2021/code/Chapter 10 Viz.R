@@ -65,3 +65,39 @@ plot(x, y, type = "l", lwd = 2,
                    "ance equal to that\nin the baby birth weight data"),
      ylab = "Probability Density", 
      xlab = "Y")
+
+
+##### SECTION 10.5
+library(ggplot2)
+
+x <- seq(0, 6000, length = 6000)
+y <- dnorm(x, mean = 3339, sd = 573)
+dat <- data.frame(x = x, 
+                  y = y)
+
+other_dat <- data.frame(orig = rnorm(6000, mean = 3339, sd = 573),
+                        pred10 = replicate(6000, mean(rnorm(10, mean = 3339, sd = 573))),
+                        pred100 = replicate(6000, mean(rnorm(100, mean = 3339, sd = 573))),
+                        pred1000 = replicate(6000, mean(rnorm(1000, mean = 3339, sd = 573))))
+
+ggplot(dat, aes(x = x, y = y)) + 
+    geom_line()
+    
+ggplot(other_dat) +
+    geom_histogram(aes(x = orig), bins = 20, fill = "red", alpha = 0.25) +
+    geom_histogram(aes(x = pred10), bins = 30, fill = "blue", alpha = 0.25) + 
+    theme(panel.background = element_blank(),
+          text = element_text(size = 20)) + 
+    xlab("Weight, Y & Mean Weight, Y-Bar") +
+    ylab("Frequency")
+
+
+ggplot(other_dat) +
+    # geom_histogram(aes(x = orig), bins = 20, fill = "red", alpha = 0.25) +
+    geom_histogram(aes(x = pred10), bins = 30, fill = "blue", alpha = 0.35) + 
+    geom_histogram(aes(x = pred100), bins = 40, fill = "green", alpha = 0.35) + 
+    geom_histogram(aes(x = pred1000), bins = 50, fill = "yellow", alpha = 0.35) + 
+    theme(panel.background = element_blank(),
+          text = element_text(size = 20)) + 
+    xlab("Weight, Y & Mean Weight, Y-Bar") +
+    ylab("Frequency")
