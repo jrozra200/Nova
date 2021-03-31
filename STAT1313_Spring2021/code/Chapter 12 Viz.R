@@ -33,3 +33,14 @@ library(reshape2)
 wide_data <- dcast(data, id_num ~ bef_aft)
 wide_data <- wide_data[, c("id_num", "before", "after", "difference")]
 wide_data
+
+ggplot(wide_data, aes(x = difference)) + 
+    geom_histogram(bins = 6, fill = "dark red", color = "black") + 
+    xlab("Difference (after - before)") +
+    ylab("Frequency") +
+    theme(panel.background = element_blank(), 
+          panel.grid.major.y = element_line(color = "light gray"),
+          panel.grid.major.x = element_blank(),
+          axis.ticks.x = element_blank(),
+          axis.ticks.y = element_line(color = "light gray"),
+          text = element_text(size = 20))
