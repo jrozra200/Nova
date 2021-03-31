@@ -26,3 +26,10 @@ ggplot(data[data$bef_aft != "difference", ],
           axis.ticks.x = element_blank(),
           axis.ticks.y = element_line(color = "light gray"),
           text = element_text(size = 20))
+
+library(knitr)
+library(reshape2)
+
+wide_data <- dcast(data, id_num ~ bef_aft)
+wide_data <- wide_data[, c("id_num", "before", "after", "difference")]
+wide_data
