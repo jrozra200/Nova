@@ -55,3 +55,29 @@ ggplot(plot_dat, aes(x = x, y = y)) +
           axis.ticks.x = element_blank(),
           axis.ticks.y = element_line(color = "light gray"),
           text = element_text(size = 20))
+
+
+plot_dat <- data.frame(x = rnorm(40),
+                       y = rnorm(40))
+ggplot(plot_dat, aes(x = x, y = y)) + 
+    geom_point() + 
+    theme(panel.background = element_blank(), 
+          panel.grid.major.y = element_line(color = "light gray"),
+          panel.grid.major.x = element_line(color = "light gray"),
+          axis.ticks.x = element_blank(),
+          axis.ticks.y = element_line(color = "light gray"),
+          text = element_text(size = 20)) + 
+    ggtitle(paste0("r = ", round(cor(plot_dat$x, plot_dat$y), 5)))
+
+ggplot(plot_dat[plot_dat$x >= -1 & plot_dat$x <= 0, ], aes(x = x, y = y)) + 
+    geom_point() + 
+    theme(panel.background = element_blank(), 
+          panel.grid.major.y = element_line(color = "light gray"),
+          panel.grid.major.x = element_line(color = "light gray"),
+          axis.ticks.x = element_blank(),
+          axis.ticks.y = element_line(color = "light gray"),
+          text = element_text(size = 20)) + 
+    ggtitle(paste0("r = ", round(cor(plot_dat$x[plot_dat$x >= -1 & 
+                                                    plot_dat$x <= 0], 
+                                     plot_dat$y[plot_dat$x >= -1 & 
+                                                    plot_dat$x <= 0]), 5)))
