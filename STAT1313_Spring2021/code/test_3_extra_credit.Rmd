@@ -1,0 +1,124 @@
+---
+title: "Test 3 Extra Credit"
+author: "Jake Rozran"
+date: "4/19/2021"
+output: html_document
+---
+
+```{r setup, echo = FALSE, warning = FALSE}
+library(knitr)
+beer <- c(32, 26, 31, 23, 35, 28, 33, 33, 35, 18, 37, 31, 31, 27, 35)
+water <- c(22, 22, 23, 18, 19, 15, 20, 21, 19, 26, 18, 15, 18, 20, 29)
+
+data <- data.frame(beer = beer,
+                   water = water)
+
+kable(data)
+```
+
+# Assignment:
+
+## State the hypothesis - we want to know if drinking beer causes more mosquitoes to be attracted to you. 
+
+$H_{0}: \mu_{beer} - \mu_{water} = 0$  
+$H_{A}: \mu_{beer} - \mu_{water} > 0$
+
+## Draw a histogram of both samples - does this data come from a normal population?
+
+```{r hist, echo = FALSE, warning = FALSE}
+library(ggplot2)
+
+plot_dat <- data.frame(value = c(beer, water),
+                       variable = c(rep("beer", 15), rep("water", 15)))
+
+ggplot(plot_dat, aes(x = value, fill = variable)) + 
+    geom_histogram(position = "identity", alpha = 0.5, bins = 5) + 
+    facet_wrap(~ variable) + 
+    theme(panel.background = element_blank(), 
+          panel.grid.major.y = element_line(color = "light gray"),
+          panel.grid.major.x = element_blank(),
+          axis.ticks.x = element_blank(),
+          axis.ticks.y = element_line(color = "light gray"),
+          text = element_text(size = 20), 
+          legend.position = "none",
+          strip.background = element_blank(), 
+          legend.title = element_blank(), 
+          axis.title = element_blank())
+    
+```
+
+## What is the sample mean for both groups?
+
+```{r means, echo = FALSE, warning = FALSE}
+beer_mean <- mean(beer)
+water_mean <- mean(water)
+```
+
+The sample mean for beer is: `r round(beer_mean, 2)`.  
+The sample mean for water is: `r round(water_mean, 2)`.  
+
+## How many degrees of freedom are there for each group and total?
+
+```{r df, echo = FALSE, warning = FALSE}
+beer_df <- length(beer) - 1
+water_df <- length(water) - 1
+total_df <- beer_df + water_df
+```
+
+Beer degrees of freedom: `r beer_df`  
+Water degrees of freedom: `r water_df`  
+Total degrees of freedom: `r total_df`  
+
+## What is the sample standard deviation for both groups?
+
+```{r sd, echo = FALSE, warning = FALSE}
+beer_sd <- sd(beer)
+water_sd <- sd(water)
+```
+
+Beer standard deviation: `r round(beer_sd, 2)`  
+Water standard deviation: `r round(water_sd, 2)`  
+
+## What is the pooled variance for this experiment?
+
+```{r sp2, echo = FALSE, warning = FALSE}
+sp2 <- ((beer_df * beer_sd^2) + (water_df * water_sd^2)) / (beer_df + water_df)
+```
+
+$s_{p}^{2} = \frac{df_{beer}s_{beer}^{2} + df_{water}s_{water}^{2}} {df_{beer} + df_{water}}$
+
+The pooled variance is: `r round(sp2, 2)`  
+
+## What is the standard error for this experiment?
+
+```{r se, echo = FALSE}
+se = sqrt(sp2 * ((1 / length(beer)) + (1 / length(water))))
+```
+
+$SE_{\overline{Y}_{beer}-\overline{Y}_{water}} = \sqrt{s_{p}^{2}(\frac{1}{n_{beer}}+\frac{1}{n_{water}})}$
+
+The standard error is: `r round(se, 2)`
+
+## What is the t-statistic for this experiment?
+
+```{r tstat, echo = FALSE}
+tstat <- (beer_mean - water_mean) / se
+```
+
+$t = \frac{\overline{Y}_{beer} - \overline{Y}_{wter}} {SE_{\overline{Y}_{beer}-\overline{Y}_{wter}}}$
+
+The t-statistic is: `r round(tstat, 2)`
+
+## What is the critical value of t for this experiment?
+
+```{r tcrit, echo = FALSE}
+tcrit <- qt(0.05, total_df, lower.tail = FALSE)
+```
+
+The critical value for this experiment is: `r round(tcrit, 2)`
+
+## What is our conclusion? 
+
+Our t-statistic is much more extreme than our critical value, thus we can reject 
+the null hypothesis; we have significant evidence that the beer drinking group 
+attracts more mosquitos than those who drink water.
