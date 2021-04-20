@@ -25,3 +25,18 @@ tstat <- (ybar_beer - ybar_water) / se_beer_water
 
 tcrit <- qt(0.05, df_tot, lower.tail = FALSE)
 pt(tstat, df_tot, lower.tail = FALSE)
+
+library(ggplot2)
+ggplot(plot_dat, aes(x = value, fill = variable)) + 
+    geom_histogram(position = "identity", alpha = 0.5, bins = 5) + 
+    facet_wrap(~ variable) + 
+    theme(panel.background = element_blank(), 
+          panel.grid.major.y = element_line(color = "light gray"),
+          panel.grid.major.x = element_blank(),
+          axis.ticks.x = element_blank(),
+          axis.ticks.y = element_line(color = "light gray"),
+          text = element_text(size = 20), 
+          legend.position = "none",
+          strip.background = element_blank(), 
+          legend.title = element_blank(), 
+          axis.title = element_blank())
