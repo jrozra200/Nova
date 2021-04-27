@@ -195,3 +195,47 @@ lin <- ggplot(plot_dat, aes(y = y_trans, x = x_trans)) +
     ggtitle(expression(ln(Y) == ln(a) + b*ln(X)))
 
 gridExtra::grid.arrange(nonlin, lin, nrow = 1)
+
+
+plot_dat <- data.frame(x = 1:12)
+plot_dat$y = 10 * 3 ^ plot_dat$x
+
+library(ggplot2)
+library(scales)
+
+nonlin <- ggplot(plot_dat, aes(y = y, x = x)) + 
+    geom_point() + 
+    scale_y_continuous(labels = comma_format()) + 
+    theme(panel.background = element_blank(), 
+          panel.grid.major.y = element_line(color = "light gray"),
+          panel.grid.major.x = element_blank(),
+          axis.ticks.x = element_blank(),
+          axis.ticks.y = element_line(color = "light gray"),
+          text = element_text(size = 20), 
+          legend.position = "none",
+          strip.background = element_blank(), 
+          legend.title = element_blank())  +
+    xlab("X") +
+    ylab("Y") + 
+    ggtitle(expression(Y == aX^b))
+
+plot_dat$y_trans <- log(plot_dat$y)
+plot_dat$x_trans <- log(plot_dat$x)
+
+lin <- ggplot(plot_dat, aes(y = y_trans, x = x)) + 
+    geom_point() + 
+    scale_y_continuous(labels = comma_format()) + 
+    theme(panel.background = element_blank(), 
+          panel.grid.major.y = element_line(color = "light gray"),
+          panel.grid.major.x = element_blank(),
+          axis.ticks.x = element_blank(),
+          axis.ticks.y = element_line(color = "light gray"),
+          text = element_text(size = 20), 
+          legend.position = "none",
+          strip.background = element_blank(), 
+          legend.title = element_blank())  +
+    xlab("X") +
+    ylab("ln(Y)") + 
+    ggtitle(expression(ln(Y) == ln(a) + ln(b)*X))
+
+gridExtra::grid.arrange(nonlin, lin, nrow = 1)
